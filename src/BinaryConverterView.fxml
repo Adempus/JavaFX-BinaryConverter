@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+	minWidth="-Infinity" prefHeight="278.0" prefWidth="506.0"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="BinaryConverterController">
+	<columnConstraints>
+		<ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0"
+			minWidth="10.0" prefWidth="44.0" />
+		<ColumnConstraints hgrow="SOMETIMES" maxWidth="441.0"
+			minWidth="10.0" prefWidth="279.0" />
+		<ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0"
+			minWidth="10.0" prefWidth="17.0" />
+		<ColumnConstraints hgrow="SOMETIMES" maxWidth="178.0"
+			minWidth="10.0" prefWidth="178.0" />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints maxHeight="128.0" minHeight="10.0"
+			prefHeight="52.0" vgrow="SOMETIMES" />
+		<RowConstraints maxHeight="247.0" minHeight="10.0"
+			prefHeight="121.0" vgrow="SOMETIMES" />
+		<RowConstraints maxHeight="236.0" minHeight="10.0"
+			prefHeight="122.0" vgrow="SOMETIMES" />
+	</rowConstraints>
+	<children>
+		<Label alignment="TOP_LEFT" text="Binary Converter"
+			textAlignment="CENTER" GridPane.columnIndex="1">
+			<font>
+				<Font name="OpenSymbol" size="15.0" />
+			</font>
+		</Label>
+		<TextArea fx:id="inputField" prefHeight="109.0" prefWidth="255.0"
+			promptText="Enter value here" wrapText="true" GridPane.columnIndex="1"
+			GridPane.rowIndex="1">
+			<GridPane.margin>
+				<Insets bottom="8.0" top="4.0" />
+			</GridPane.margin>
+		</TextArea>
+		<Button fx:id="convertButton" alignment="CENTER" maxHeight="-Infinity"
+			maxWidth="-Infinity" mnemonicParsing="false" onAction="#handleConvertBtnClick"
+			onKeyPressed="#handleConvertBtnKeyPress" prefHeight="40.0" text="Convert"
+			GridPane.columnIndex="3" GridPane.columnSpan="2147483647"
+			GridPane.rowIndex="2" GridPane.rowSpan="2147483647">
+			<GridPane.margin>
+				<Insets bottom="15.0" left="37.0" />
+			</GridPane.margin>
+		</Button>
+		<Text fx:id="errorText" wrappingWidth="241.0"
+			GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT"
+			GridPane.rowIndex="2">
+			<GridPane.margin>
+				<Insets right="24.0" top="80.0" />
+			</GridPane.margin>
+		</Text>
+		<TextArea fx:id="outputField" editable="false" maxHeight="-Infinity"
+			maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+			prefHeight="77.0" prefWidth="255.0" wrapText="true"
+			GridPane.columnIndex="1" GridPane.rowIndex="2">
+			<GridPane.margin>
+				<Insets bottom="23.0" />
+			</GridPane.margin>
+		</TextArea>
+		<RadioButton mnemonicParsing="false" text="Binary to Number"
+			GridPane.columnIndex="3" GridPane.rowIndex="1">
+			<GridPane.margin>
+				<Insets bottom="89.0" />
+			</GridPane.margin>
+			<toggleGroup>
+				<ToggleGroup fx:id="conversionOptions" />
+			</toggleGroup>
+		</RadioButton>
+		<RadioButton mnemonicParsing="false" text="Number to Binary"
+			toggleGroup="$conversionOptions" GridPane.columnIndex="3"
+			GridPane.rowIndex="1">
+			<GridPane.margin>
+				<Insets bottom="40.0" />
+			</GridPane.margin>
+		</RadioButton>
+		<RadioButton mnemonicParsing="false" text="Binary to Text"
+			toggleGroup="$conversionOptions" GridPane.columnIndex="3"
+			GridPane.rowIndex="1">
+			<GridPane.margin>
+				<Insets bottom="-10.0" />
+			</GridPane.margin>
+		</RadioButton>
+		<RadioButton mnemonicParsing="false" text="Text to Binary"
+			toggleGroup="$conversionOptions" GridPane.columnIndex="3"
+			GridPane.rowIndex="1">
+			<GridPane.margin>
+				<Insets bottom="-60.0" />
+			</GridPane.margin>
+		</RadioButton>
+	</children>
+</GridPane>
