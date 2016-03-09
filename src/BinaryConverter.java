@@ -96,21 +96,21 @@ public class BinaryConverter
 	// Turns text into binary. 
 	private void textToBinary()
 	{
-        String binResult = "";
-        final String fourBitPrepend = "0000";
-        final String twoBitPrepend = "00";
-        final String bitPrepend = "0";
-        byte[] charCodes = input.toString().getBytes();
+        	String binResult = "";
+        	final String fourBitPrepend = "0000";
+        	final String twoBitPrepend = "00";
+        	final String bitPrepend = "0";
+        	byte[] charCodes = input.toString().getBytes();
 
-        for(byte ch : charCodes) {
-            String binary = Integer.toBinaryString(ch);
-            switch(binary.length()) {
-                case 4 : binResult += fourBitPrepend + binary; break;
-                case 6 : binResult += twoBitPrepend + binary; break;
-                case 7 : binResult += bitPrepend + binary; break;
-                default : binResult += binary;
-            }
-        }
+        	for(byte ch : charCodes) {
+            		String binary = Integer.toBinaryString(ch);
+            		switch(binary.length()) {
+                		case 4 : binResult += fourBitPrepend + binary; break;
+                		case 6 : binResult += twoBitPrepend + binary; break;
+                		case 7 : binResult += bitPrepend + binary; break;
+                		default : binResult += binary;
+            		}
+        	}
 
 		this.output = binResult;
 	}
