@@ -1,24 +1,27 @@
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import java.io.IOException;
+import javafx.fxml.FXML;
 
-public class BinaryConverterController 
+public class BinaryConverterController
 {
-	// String array of options to compare against when selection checking. 
-	final private String[] OPTIONS = { "Binary to Number", "Number to Binary", 
-			"Binary to Text", "Text to Binary" };
-	
-	protected BinaryConverter conversion;	
-	
+	protected enum ConversionOptions {
+		BINARY_TO_NUMBER, NUMBER_TO_BINARY, BINARY_TO_TEXT,
+		TEXT_TO_BINARY
+	}
+	private ConversionOptions conversionOpt;
+	// String array of options to compare against when selection checking.
+
+
+	protected BinaryConverterModel converter;
 	/* UI elements */
 	@FXML private Text errorText;
 	@FXML private TextArea outputField;
 	@FXML private TextArea inputField;
-	@FXML private Button convertButton;
+	//@FXML private Button convertButton;
 	@FXML private ToggleGroup conversionOptions;
 
 	/* Handles an instance of a mouse click on the convert button. */
@@ -34,51 +37,45 @@ public class BinaryConverterController
 			checkSelection();
 	}
 	
-	/* Checks which toggle option was selected 
-	 * to perform a corresponding operation. */
-	private void checkSelection() 
-	{
+	/* Checks which toggle option was selected to perform a corresponding operation. */
+	private void checkSelection() {
 		String selection = "";
-		
 		try {
 			selection = conversionOptions.getSelectedToggle().toString();
+			conversionOpt = (selection.contains("Binary to Number") ? ConversionOptions.BINARY_TO_NUMBER :
+							selection.contains("Number to Binary") ? ConversionOptions.NUMBER_TO_BINARY :
+							selection.contains("Binary to Text") ? ConversionOptions.BINARY_TO_TEXT :
+							ConversionOptions.TEXT_TO_BINARY);
 		} catch (NullPointerException ex) {
 			errorText.setFill(Color.FIREBRICK);
 			errorText.setText("Select an option");
 		}
-		
 		String input = inputField.getText();
-				
-		if (selection.contains(OPTIONS[0])) 
-			displayResults(input, OPTIONS[0]);
-		else if (selection.contains(OPTIONS[1]))
-			displayResults(input, OPTIONS[1]);
-		else if (selection.contains(OPTIONS[2]))
-			displayResults(input, OPTIONS[2]);
-		else if (selection.contains(OPTIONS[3]))
-			displayResults(input, OPTIONS[3]);
+		displayResults(input, conversionOpt);
 	}
 	
 	/* Receives an input and option to send to the converter class, which 
-	   then delegates the results back to this method to be displayed */
-	private void displayResults(String input, String option) 
+	   then sends the results back to this method to be displayed */
+	private void displayResults(String input, ConversionOptions opt)
 	{
 		boolean error = false;
-		
 		try {
-			conversion = new BinaryConverter(input, option);
-		} catch (IOException | NumberFormatException ex) {
-			errorText.setText(ex.getMessage());
-			errorText.setFill(Color.FIREBRICK);
-			errorText.setVisible(true);
-			outputField.clear();
+			converter = new BinaryConverterModel(input, opt);
+		} catch (IOException | NullPointerException | NumberFormatException ex) {
+            displayError(ex.getMessage());
 			error = true;
 		}
-		
 		if(!error) {
 			outputField.setStyle("-fx-text-fill: #1da21d;");
-			outputField.setText(conversion.getConversion());
+			outputField.setText(converter.getConversion());
 			errorText.setVisible(false);
 		}
 	}
+
+    private void displayError(String message) {
+        errorText.setText(message);
+        errorText.setFill(Color.FIREBRICK);
+        errorText.setVisible(true);
+        outputField.clear();
+    }
 }
